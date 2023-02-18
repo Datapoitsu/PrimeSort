@@ -1,4 +1,4 @@
-Primesort is a successor to bogosort. It has been impruved by using primes to shuffle the array, instead of actual random numbers. This makes it consistent with the same array, and only increases the compute time by a ton!
+Primesort is a successor to bogosort. It has been improved by using primes to shuffle the array, instead of actual random numbers. This makes it consistent with the same array, and only increases the compute time by a ton!
 
 Starting array is printed only if -a is not used.  
 
