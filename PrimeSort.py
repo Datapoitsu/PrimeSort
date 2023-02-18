@@ -1,3 +1,6 @@
+## -------------------- Bogosort with primenumbers -------------------- ##
+#Written by: Veeti "Thaumatized" Junkkala
+
 import random
 import sys
 import PrimeNumbers
