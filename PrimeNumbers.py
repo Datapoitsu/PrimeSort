@@ -1,71 +1,47 @@
-## -------------------- Primenumber finder -------------------- ##
+## -------------------- Primenumbers -------------------- ##
 #Written by: Aarni Junkkala
 
+import math
+
 #Collects primes into a list and returns the prime of that index
-primes = [2] #has two for bace, as it is easier to start from that
-def CalculatePrimesIndex(i): #i = index
-    global primes
-   
-    #If prime of the index isn't found, looks for it.
-    if i > len(primes) - 1:
-        num = primes[-1] + 1 #Starts from the one above last known prime
-        
-        while True:
-            #Try to divide with every primenumber
-            isPrime = True
-            for k in range(len(primes)):
-                #if answer is integer, then number isn't a prime
-                if (num / primes[k]).is_integer() == True:
-                    isPrime = False
-                    break
-            if isPrime == True:
-                primes.append(num)
-                #If enough primes have been calculated,
-                #then will break and return the correct prime
-                if i <= len(primes) - 1:
-                    break
-            num += 1
-            
-    return primes[i]
+primes = [2,3,5] #Has first 3 as it will help optimizing the code.
 
-def CalculatePrimesNumber(n): #i = index
+def CalculatePrimesIndex(n): #Returns the n:th prime
     global primes
-   
-    #If prime of the index isn't found, looks for it.
-    if n > primes[len(primes) - 1]:
-        num = primes[-1] + 1 #Starts from the one above last known prime
-        
-        while True:
-            #Try to divide with every primenumber
-            isPrime = True
-            for k in range(len(primes)):
-                #if answer is integer, then number isn't a prime
-                if (num / primes[k]).is_integer() == True:
-                    isPrime = False
-                    break
-            if isPrime == True:
-                primes.append(num)
-            #If enough numbers have been calculated,
-            #then will break and return the correct prime
-            if n <= num:
+    #If prime index is already found, returns that
+    if n <= len(primes) - 1:
+        return primes[n]
+    
+    num = primes[-1]#Starts from the two above last known prime
+    while True:
+        num += 2
+        while int(str(num)[-1]) not in [1,3,7,9]: #Increases the number, till it is possible to be a prime
+            num += 2
+
+        #Prime can't be divisible with numbers higher that it's sqrt
+        sqrt = math.sqrt(num)
+                
+        isPrime = True    
+        for k in range(1,len(primes)): #Doesn't have to test number 2, because num can't be an even number
+            if primes[k] > sqrt:
                 break
-            num += 1
+            if num % primes[k] == 0: #If division goes perfectly onto number,
+                isPrime = False #Then it isn't a prime
+                break
+        if isPrime == True: #It was a prime!
+            primes.append(num)
+            if n <= len(primes) - 1: #If enough primes have been calculated,
+                return primes[n] #then will break and return the correct prime
             
-    return primes[len(primes) - 1]
-
-#Used for matematical usage, where prime1 = fisrt, where as in coding 0 is first.
-def GetPrime(n):
-    global primes
-    if n - 1 > len(primes) - 1:
-        CalculatePrimesIndex(n)
-    return primes[n - 1]
+    
     
 if __name__ == '__main__':
-    #Gets the prime that is 10th
-    print(GetPrime(10))
-    
-    #Looks for a prime that is smaller than (n)
-    print(CalculatePrimesNumber(50))
-    
-    #Gets the prime based on the index, this will return 101st 
-    print(CalculatePrimesIndex(100))
+    # -- Testing the performance -- #
+    import time
+    Alku = time.time()
+    dist = 4
+    for i in range(1,dist):
+        print(CalculatePrimesIndex(10 ** i))
+    for i in range(dist,0,-1):
+        print(CalculatePrimesIndex(10 ** i))
+    print("Aika:" + str(time.time()-Alku))
