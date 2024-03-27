@@ -2,11 +2,11 @@ Primesort is a successor to bogosort. It has been improved by using primes to sh
 
 Starting array is printed only if -a is not used.  
 
-Command line arguments:
+Command line arguments:  
 	-l length, how long of a list is used. default 10.  
 	-m max, biggest number allowed in the list. default 255.  
-	-a values..., values used to specify an array to sort. overrides -c and -v.
+	-a values..., values used to specify an array to sort. overrides -l
 
 Example commands:
-	python PrimeSort.py -a 7 3 2 9 5
-	python PrimeSort.py -l 7 -m 100
+>python PrimeSort.py -a 7 3 2 9 5  
+>python PrimeSort.py -l 7 -m 100
